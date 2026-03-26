@@ -40,16 +40,12 @@ const NewArrivals = ({ onProductClick }: NewArrivalsProps) => {
                 alt={product.name}
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
                 loading="lazy"
-                width={800}
-                height={1066}
               />
               <img
                 src={productBack}
                 alt={`${product.name} Back`}
                 className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 loading="lazy"
-                width={800}
-                height={1066}
               />
               <div className="absolute top-2 right-2 bg-foreground text-background text-xs font-bold px-2 py-1">
                 BRAND NEW
