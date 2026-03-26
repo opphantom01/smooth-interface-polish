@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import heroImage from "@/assets/hero-denim.jpg";
+import heroImage from "@/assets/hero-campaign.jpg";
 
 interface HeroSectionProps {
   onShopClick: () => void;
@@ -15,8 +15,6 @@ const HeroSection = ({ onShopClick }: HeroSectionProps) => {
         src={heroImage}
         alt="Campaign"
         className="absolute inset-0 w-full h-full object-cover"
-        width={1280}
-        height={1600}
       />
       <div className="relative z-10 text-center px-4">
         <motion.h1

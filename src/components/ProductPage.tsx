@@ -2,7 +2,9 @@ import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import productFront from "@/assets/product-front.jpg";
 import productBack from "@/assets/product-back.jpg";
-import heroImage from "@/assets/hero-denim.jpg";
+import carouselModel1 from "@/assets/carousel-model1.jpg";
+import carouselModel2 from "@/assets/carousel-model2.jpg";
+import carouselLook from "@/assets/carousel-look.jpg";
 
 interface ProductPageProps {
   onAddToCart: (size: string) => void;
@@ -11,9 +13,9 @@ interface ProductPageProps {
 const images = [
   { src: productFront, alt: "Front" },
   { src: productBack, alt: "Back" },
-  { src: heroImage, alt: "Model 1" },
-  { src: productFront, alt: "Model 2" },
-  { src: productBack, alt: "Look" },
+  { src: carouselModel1, alt: "Model 1" },
+  { src: carouselModel2, alt: "Model 2" },
+  { src: carouselLook, alt: "Look" },
 ];
 
 const sizes = ["28", "30", "32", "34"];
