@@ -21,7 +21,7 @@ const AnnouncementBar = () => {
       initial={{ y: -40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="w-full border-b border-border py-3 px-4 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 text-xs sm:text-sm tracking-widest font-bold"
+      className="w-full bg-black text-white border-b border-white/10 py-3 px-4 flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 text-xs sm:text-sm tracking-widest font-bold"
     >
       <div>FREE SHIPPING</div>
       <div className="flex items-center gap-2">
