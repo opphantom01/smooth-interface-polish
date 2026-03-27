@@ -10,7 +10,7 @@ const HeroSection = ({ onShopClick }: HeroSectionProps) => {
     <div className="relative w-full h-[80vh] bg-secondary overflow-hidden flex flex-col justify-end items-center pb-20">
       <motion.img
         initial={{ scale: 1.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 0.7 }}
+        animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
         src={heroImage}
         alt="Campaign"
