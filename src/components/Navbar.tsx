@@ -15,8 +15,8 @@ const Navbar = ({ cartCount, onCartClick, onHomeClick }: NavbarProps) => {
       className="w-full flex justify-between items-center px-6 py-4 sticky top-0 bg-black/95 text-white backdrop-blur-sm z-50 border-b border-white/10"
     >
       <button onClick={onHomeClick} className="w-8 h-8 flex flex-col justify-center gap-1.5">
-        <div className="w-6 h-0.5 bg-foreground" />
-        <div className="w-6 h-0.5 bg-foreground" />
+        <div className="w-6 h-0.5 bg-white" />
+        <div className="w-6 h-0.5 bg-white" />
       </button>
       <button onClick={onHomeClick} className="text-xl font-bold tracking-[0.2em] uppercase text-center cursor-pointer">
         crp.tm
