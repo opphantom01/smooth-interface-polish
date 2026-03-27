@@ -1,26 +1,563 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Lovable App</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>crp.tm | Premium Streetwear</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["'Helvetica Neue'", 'Helvetica', 'Arial', 'sans-serif'],
+          },
+          keyframes: {
+            'fade-up': {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            'fade-in': {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+          },
+          animation: {
+            'fade-up': 'fade-up 0.6s ease-out forwards',
+            'fade-in': 'fade-in 0.5s ease-out forwards',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #fff; color: #000; }
 
-    <!-- TODO: Update og:title to match your application name -->
-    <meta property="og:title" content="Lovable App" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    .product-card .img-back { opacity: 0; transition: opacity 0.5s ease; }
+    .product-card:hover .img-back { opacity: 1; }
+    .product-card:hover .img-front { opacity: 0; transition: opacity 0.5s ease; }
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-  <body>
-<div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    .page-section { transition: opacity 0.35s ease; }
+
+    .btn-hover:hover { transform: scale(1.02); }
+    .btn-hover:active { transform: scale(0.98); }
+
+    .size-btn { transition: all 0.15s ease; }
+    .size-btn.selected { background: #000; color: #fff; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- ========== ANNOUNCEMENT BAR ========== -->
+  <div id="announcement-bar" class="w-full bg-black text-white py-2 text-center animate-fade-in">
+    <p class="text-xs tracking-widest uppercase font-bold">
+      FREE SHIPPING — Offer ends in
+      <span id="countdown-min" class="tabular-nums">00</span>:<span id="countdown-sec" class="tabular-nums">00</span>
+    </p>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="sticky top-0 z-50 w-full bg-black/95 backdrop-blur border-b border-white/10">
+    <div class="max-w-screen-xl mx-auto flex items-center justify-between px-5 py-4">
+      <!-- Menu icon -->
+      <button onclick="navigateTo('home')" class="text-white btn-hover transition" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <!-- Logo -->
+      <a href="#" onclick="navigateTo('home'); return false;" class="text-white text-lg font-bold tracking-[0.2em] uppercase">crp.tm</a>
+      <!-- Cart -->
+      <button onclick="openCart()" class="text-white relative btn-hover transition" aria-label="Cart">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-white text-black text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center hidden">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HOME PAGE ========== -->
+  <div id="page-home" class="page-section">
+
+    <!-- Hero Section -->
+    <section class="relative w-full h-[80vh] overflow-hidden flex items-center justify-center">
+      <img
+        src="https://YOUR-DIRECT-HERO-IMAGE-LINK-HERE.jpg"
+        alt="Hero Campaign"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="lazy"
+      />
+      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="relative z-10 text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold uppercase tracking-widest mb-4 animate-fade-up">
+          Certified Drop Out Now
+        </h1>
+        <p class="text-sm md:text-base tracking-wider uppercase mb-8 opacity-90 animate-fade-up" style="animation-delay:0.15s">
+          Pieces &amp; Free Shipping
+        </p>
+        <button
+          onclick="navigateTo('product', 0)"
+          class="bg-black text-white text-xs uppercase tracking-widest px-8 py-3 border border-transparent hover:border-white transition-all btn-hover animate-fade-up"
+          style="animation-delay:0.3s"
+        >
+          Shop Denim
+        </button>
+      </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="max-w-screen-xl mx-auto px-5 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold uppercase tracking-widest text-center mb-12">New Arrivals</h2>
+      <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- Products injected by JS -->
+      </div>
+    </section>
+
+    <!-- Email Signup -->
+    <section class="bg-black text-white py-16 px-5">
+      <div class="max-w-screen-md mx-auto text-center">
+        <h2 class="text-xl md:text-2xl font-bold uppercase tracking-widest mb-4">Everybody can't have limited items..</h2>
+        <p class="text-xs tracking-wider uppercase text-white/70 mb-8">Join our email list &amp; get first access to restocks and new drops</p>
+        <form id="email-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="handleEmailSubmit(event)">
+          <input
+            type="email"
+            placeholder="Enter your email"
+            required
+            class="flex-1 bg-transparent border border-white/30 text-white text-sm px-4 py-3 placeholder:text-white/40 focus:border-white outline-none transition"
+          />
+          <button type="submit" class="bg-white text-black text-xs uppercase tracking-widest font-bold px-6 py-3 btn-hover transition">
+            Subscribe
+          </button>
+        </form>
+        <p id="email-success" class="text-green-400 text-sm mt-4 hidden">You're on the list!</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ========== PRODUCT PAGE ========== -->
+  <div id="page-product" class="page-section hidden">
+    <div class="max-w-screen-xl mx-auto">
+      <!-- Back button -->
+      <div class="px-5 pt-6">
+        <button onclick="navigateTo('home')" class="text-xs uppercase tracking-widest text-black/60 hover:text-black transition flex items-center gap-2">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+      </div>
+
+      <!-- Image Carousel -->
+      <div class="relative mt-4">
+        <div id="product-carousel" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-3 px-5">
+          <!-- Carousel images injected by JS -->
+        </div>
+        <p class="text-center text-xs text-black/40 uppercase tracking-widest mt-3">Swipe ➔</p>
+      </div>
+
+      <!-- Product Info -->
+      <div class="px-5 py-8">
+        <span class="text-[10px] uppercase tracking-widest text-black/50 font-bold" id="product-condition">Brand New Condition</span>
+        <h1 id="product-name" class="text-xl md:text-2xl font-bold uppercase tracking-wider mt-2"></h1>
+        <p id="product-price" class="text-lg font-bold mt-2"></p>
+
+        <!-- Size Selector -->
+        <div class="mt-6">
+          <p class="text-xs uppercase tracking-widest font-bold mb-3">Size</p>
+          <div id="size-options" class="flex gap-3">
+            <!-- Sizes injected by JS -->
+          </div>
+        </div>
+
+        <!-- Add to Cart -->
+        <button
+          id="add-to-cart-btn"
+          onclick="addToCart()"
+          class="w-full bg-black text-white text-xs uppercase tracking-widest font-bold py-4 mt-8 btn-hover transition"
+        >
+          Add To Cart
+        </button>
+        <p id="cart-success" class="text-green-600 text-sm text-center mt-3 hidden font-bold">Added to cart!</p>
+
+        <!-- Measurements -->
+        <div class="mt-10 border-t border-black/10 pt-8">
+          <h3 class="text-xs uppercase tracking-widest font-bold mb-4">Measurements</h3>
+          <div id="measurements-table" class="space-y-2 text-sm text-black/70">
+            <!-- Measurements injected by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CART MODAL ========== -->
+  <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-50 hidden" onclick="closeCart()"></div>
+  <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-sm bg-white z-50 shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-black/10">
+      <h2 class="text-sm uppercase tracking-widest font-bold">Your Cart</h2>
+      <button onclick="closeCart()" class="text-black/50 hover:text-black transition btn-hover" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div id="cart-items" class="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+      <p id="cart-empty-msg" class="text-sm text-black/40 text-center mt-8">Your cart is empty</p>
+    </div>
+    <div id="cart-footer" class="border-t border-black/10 px-5 py-4 hidden">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-xs uppercase tracking-widest font-bold">Total</span>
+        <span id="cart-total" class="text-lg font-bold">₹0</span>
+      </div>
+      <button class="w-full bg-black text-white text-xs uppercase tracking-widest font-bold py-4 btn-hover transition">
+        Checkout
+      </button>
+    </div>
+  </div>
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    // ===== PRODUCT DATA =====
+    var products = [
+      {
+        id: 0,
+        name: 'Vintage Flared Denim',
+        price: 1299,
+        sizes: ['28', '30', '32', '34'],
+        frontImage: 'https://YOUR-DIRECT-PRODUCT-FRONT-IMAGE-LINK-HERE.jpg',
+        backImage: 'https://YOUR-DIRECT-PRODUCT-BACK-IMAGE-LINK-HERE.jpg',
+        carouselImages: [
+          'https://YOUR-DIRECT-PRODUCT-FRONT-IMAGE-LINK-HERE.jpg',
+          'https://YOUR-DIRECT-PRODUCT-BACK-IMAGE-LINK-HERE.jpg',
+          'https://YOUR-DIRECT-CAROUSEL-MODEL1-IMAGE-LINK-HERE.jpg',
+          'https://YOUR-DIRECT-CAROUSEL-MODEL2-IMAGE-LINK-HERE.jpg',
+          'https://YOUR-DIRECT-CAROUSEL-LOOK-IMAGE-LINK-HERE.jpg'
+        ],
+        measurements: [
+          { label: 'Length (all sizes)', value: '43 inches' },
+          { label: 'Size 28 — Thigh / Leg Opening', value: '10.5" / 18"' },
+          { label: 'Size 30 — Thigh / Leg Opening (Model wears)', value: '11.0" / 18.5"' },
+          { label: 'Size 32 — Thigh / Leg Opening', value: '11.5" / 19"' },
+          { label: 'Size 34 — Thigh / Leg Opening', value: '12.5" / 20"' }
+        ]
+      },
+      {
+        id: 1,
+        name: 'Flared Denim Jeans',
+        price: 1299,
+        sizes: ['28', '30', '32', '34'],
+        frontImage: 'https://YOUR-DIRECT-FLARED-DENIM-IMAGE-LINK-HERE.jpg',
+        backImage: null,
+        carouselImages: [
+          'https://YOUR-DIRECT-FLARED-DENIM-IMAGE-LINK-HERE.jpg'
+        ],
+        measurements: [
+          { label: 'Length (all sizes)', value: '43 inches' },
+          { label: 'Size 28 — Thigh / Leg Opening', value: '10.5" / 18"' },
+          { label: 'Size 30 — Thigh / Leg Opening', value: '11.0" / 18.5"' },
+          { label: 'Size 32 — Thigh / Leg Opening', value: '11.5" / 19"' },
+          { label: 'Size 34 — Thigh / Leg Opening', value: '12.5" / 20"' }
+        ]
+      },
+      {
+        id: 2,
+        name: 'Henley Long Sleeve - Black',
+        price: 1299,
+        sizes: ['28', '30', '32', '34'],
+        frontImage: 'https://YOUR-DIRECT-HENLEY-BLACK-IMAGE-LINK-HERE.jpg',
+        backImage: null,
+        carouselImages: [
+          'https://YOUR-DIRECT-HENLEY-BLACK-IMAGE-LINK-HERE.jpg'
+        ],
+        measurements: [
+          { label: 'Length (all sizes)', value: '28 inches' },
+          { label: 'Size 28 — Chest', value: '38"' },
+          { label: 'Size 30 — Chest', value: '40"' },
+          { label: 'Size 32 — Chest', value: '42"' },
+          { label: 'Size 34 — Chest', value: '44"' }
+        ]
+      },
+      {
+        id: 3,
+        name: 'Henley Long Sleeve - Grey',
+        price: 1299,
+        sizes: ['28', '30', '32', '34'],
+        frontImage: 'https://YOUR-DIRECT-HENLEY-GREY-IMAGE-LINK-HERE.jpg',
+        backImage: null,
+        carouselImages: [
+          'https://YOUR-DIRECT-HENLEY-GREY-IMAGE-LINK-HERE.jpg'
+        ],
+        measurements: [
+          { label: 'Length (all sizes)', value: '28 inches' },
+          { label: 'Size 28 — Chest', value: '38"' },
+          { label: 'Size 30 — Chest', value: '40"' },
+          { label: 'Size 32 — Chest', value: '42"' },
+          { label: 'Size 34 — Chest', value: '44"' }
+        ]
+      },
+      {
+        id: 4,
+        name: 'Henley Long Sleeve - Blue',
+        price: 1299,
+        sizes: ['28', '30', '32', '34'],
+        frontImage: 'https://YOUR-DIRECT-HENLEY-BLUE-IMAGE-LINK-HERE.jpg',
+        backImage: 'https://YOUR-DIRECT-HENLEY-BLUE-ALT-IMAGE-LINK-HERE.jpg',
+        carouselImages: [
+          'https://YOUR-DIRECT-HENLEY-BLUE-IMAGE-LINK-HERE.jpg',
+          'https://YOUR-DIRECT-HENLEY-BLUE-ALT-IMAGE-LINK-HERE.jpg'
+        ],
+        measurements: [
+          { label: 'Length (all sizes)', value: '28 inches' },
+          { label: 'Size 28 — Chest', value: '38"' },
+          { label: 'Size 30 — Chest', value: '40"' },
+          { label: 'Size 32 — Chest', value: '42"' },
+          { label: 'Size 34 — Chest', value: '44"' }
+        ]
+      },
+      {
+        id: 5,
+        name: 'Wide Leg Pants',
+        price: 1299,
+        sizes: ['28', '30', '32', '34'],
+        frontImage: 'https://YOUR-DIRECT-WIDE-PANTS-IMAGE-LINK-HERE.jpg',
+        backImage: null,
+        carouselImages: [
+          'https://YOUR-DIRECT-WIDE-PANTS-IMAGE-LINK-HERE.jpg'
+        ],
+        measurements: [
+          { label: 'Length (all sizes)', value: '43 inches' },
+          { label: 'Size 28 — Thigh / Leg Opening', value: '11" / 19"' },
+          { label: 'Size 30 — Thigh / Leg Opening', value: '11.5" / 19.5"' },
+          { label: 'Size 32 — Thigh / Leg Opening', value: '12" / 20"' },
+          { label: 'Size 34 — Thigh / Leg Opening', value: '13" / 21"' }
+        ]
+      },
+      {
+        id: 6,
+        name: 'Flared Pants - Black',
+        price: 1299,
+        sizes: ['28', '30', '32', '34'],
+        frontImage: 'https://YOUR-DIRECT-FLARED-BLACK-IMAGE-LINK-HERE.jpg',
+        backImage: null,
+        carouselImages: [
+          'https://YOUR-DIRECT-FLARED-BLACK-IMAGE-LINK-HERE.jpg'
+        ],
+        measurements: [
+          { label: 'Length (all sizes)', value: '43 inches' },
+          { label: 'Size 28 — Thigh / Leg Opening', value: '10.5" / 18"' },
+          { label: 'Size 30 — Thigh / Leg Opening', value: '11" / 18.5"' },
+          { label: 'Size 32 — Thigh / Leg Opening', value: '11.5" / 19"' },
+          { label: 'Size 34 — Thigh / Leg Opening', value: '12.5" / 20"' }
+        ]
+      }
+    ];
+
+    // ===== STATE =====
+    var cart = [];
+    var currentProduct = null;
+    var selectedSize = null;
+
+    // ===== COUNTDOWN TIMER =====
+    var countdownTotal = 15 * 60;
+    function updateCountdown() {
+      var min = Math.floor(countdownTotal / 60).toString().padStart(2, '0');
+      var sec = (countdownTotal % 60).toString().padStart(2, '0');
+      document.getElementById('countdown-min').textContent = min;
+      document.getElementById('countdown-sec').textContent = sec;
+      if (countdownTotal > 0) countdownTotal--;
+      else countdownTotal = 15 * 60;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ===== RENDER PRODUCT GRID =====
+    function renderProductGrid() {
+      var grid = document.getElementById('product-grid');
+      grid.innerHTML = products.map(function(p, i) {
+        return '<div class="product-card cursor-pointer group" onclick="navigateTo(\'product\', ' + p.id + ')" style="animation: fade-up 0.6s ease-out ' + (i * 0.08) + 's both;">' +
+          '<div class="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-3">' +
+            '<img src="' + p.frontImage + '" alt="' + p.name + '" class="img-front absolute inset-0 w-full h-full object-cover transition-opacity duration-500" loading="lazy" />' +
+            (p.backImage ? '<img src="' + p.backImage + '" alt="' + p.name + ' back" class="img-back absolute inset-0 w-full h-full object-cover" loading="lazy" />' : '') +
+            '<span class="absolute top-2 left-2 bg-black text-white text-[9px] uppercase tracking-widest font-bold px-2 py-1">Brand New</span>' +
+          '</div>' +
+          '<h3 class="text-xs uppercase tracking-wider font-bold">' + p.name + '</h3>' +
+          '<p class="text-sm font-bold mt-1">₹' + p.price + '</p>' +
+        '</div>';
+      }).join('');
+    }
+
+    // ===== RENDER PRODUCT PAGE =====
+    function renderProductPage(productId) {
+      var p = products.find(function(pr) { return pr.id === productId; });
+      if (!p) return;
+      currentProduct = p;
+      selectedSize = null;
+
+      document.getElementById('product-name').textContent = p.name;
+      document.getElementById('product-price').textContent = '\u20B9' + p.price;
+      document.getElementById('product-condition').textContent = 'Brand New Condition';
+
+      // Carousel
+      var carousel = document.getElementById('product-carousel');
+      carousel.innerHTML = p.carouselImages.map(function(img) {
+        return '<div class="min-w-[85%] sm:min-w-[70%] snap-center flex-shrink-0">' +
+          '<div class="aspect-[3/4] bg-gray-100 overflow-hidden">' +
+            '<img src="' + img + '" alt="' + p.name + '" class="w-full h-full object-cover" loading="lazy" />' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      // Sizes
+      var sizeContainer = document.getElementById('size-options');
+      sizeContainer.innerHTML = p.sizes.map(function(s) {
+        return '<button onclick="selectSize(\'' + s + '\')" class="size-btn w-12 h-12 border border-black text-xs uppercase tracking-wider font-bold transition" data-size="' + s + '">' +
+          s +
+        '</button>';
+      }).join('');
+
+      // Measurements
+      var measTable = document.getElementById('measurements-table');
+      measTable.innerHTML = p.measurements.map(function(m) {
+        return '<div class="flex justify-between py-2 border-b border-black/5">' +
+          '<span>' + m.label + '</span>' +
+          '<span class="font-bold text-black">' + m.value + '</span>' +
+        '</div>';
+      }).join('');
+
+      document.getElementById('cart-success').classList.add('hidden');
+    }
+
+    // ===== SIZE SELECTION =====
+    function selectSize(size) {
+      selectedSize = size;
+      document.querySelectorAll('.size-btn').forEach(function(btn) {
+        if (btn.dataset.size === size) {
+          btn.classList.add('selected');
+        } else {
+          btn.classList.remove('selected');
+        }
+      });
+    }
+
+    // ===== NAVIGATION =====
+    function navigateTo(page, productId) {
+      var home = document.getElementById('page-home');
+      var product = document.getElementById('page-product');
+
+      if (page === 'home') {
+        product.classList.add('hidden');
+        home.classList.remove('hidden');
+        home.style.opacity = '0';
+        requestAnimationFrame(function() { home.style.opacity = '1'; });
+      } else if (page === 'product') {
+        renderProductPage(productId !== undefined ? productId : 0);
+        home.classList.add('hidden');
+        product.classList.remove('hidden');
+        product.style.opacity = '0';
+        requestAnimationFrame(function() { product.style.opacity = '1'; });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ===== CART =====
+    function addToCart() {
+      if (!currentProduct) return;
+      if (!selectedSize) {
+        alert('Please select a size');
+        return;
+      }
+      cart.push({
+        id: currentProduct.id,
+        name: currentProduct.name,
+        price: currentProduct.price,
+        size: selectedSize,
+        image: currentProduct.frontImage
+      });
+      updateCartUI();
+      var msg = document.getElementById('cart-success');
+      msg.classList.remove('hidden');
+      setTimeout(function() { msg.classList.add('hidden'); }, 2000);
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+      renderCartItems();
+    }
+
+    function updateCartUI() {
+      var countEl = document.getElementById('cart-count');
+      if (cart.length > 0) {
+        countEl.textContent = cart.length;
+        countEl.classList.remove('hidden');
+      } else {
+        countEl.classList.add('hidden');
+      }
+    }
+
+    function renderCartItems() {
+      var container = document.getElementById('cart-items');
+      var footer = document.getElementById('cart-footer');
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="text-sm text-black/40 text-center mt-8">Your cart is empty</p>';
+        footer.classList.add('hidden');
+        return;
+      }
+
+      footer.classList.remove('hidden');
+      container.innerHTML = cart.map(function(item, i) {
+        return '<div class="flex gap-4 items-start">' +
+          '<div class="w-16 h-20 bg-gray-100 overflow-hidden flex-shrink-0">' +
+            '<img src="' + item.image + '" alt="' + item.name + '" class="w-full h-full object-cover" />' +
+          '</div>' +
+          '<div class="flex-1 min-w-0">' +
+            '<h3 class="text-xs uppercase tracking-wider font-bold truncate">' + item.name + '</h3>' +
+            '<p class="text-xs text-black/50 mt-1">Size: ' + item.size + '</p>' +
+            '<p class="text-sm font-bold mt-1">₹' + item.price + '</p>' +
+          '</div>' +
+          '<button onclick="removeFromCart(' + i + ')" class="text-black/30 hover:text-black transition btn-hover" aria-label="Remove">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+          '</button>' +
+        '</div>';
+      }).join('');
+
+      var total = cart.reduce(function(sum, item) { return sum + item.price; }, 0);
+      document.getElementById('cart-total').textContent = '\u20B9' + total;
+    }
+
+    function openCart() {
+      renderCartItems();
+      document.getElementById('cart-overlay').classList.remove('hidden');
+      var drawer = document.getElementById('cart-drawer');
+      drawer.classList.remove('translate-x-full');
+      drawer.classList.add('translate-x-0');
+    }
+
+    function closeCart() {
+      var drawer = document.getElementById('cart-drawer');
+      drawer.classList.remove('translate-x-0');
+      drawer.classList.add('translate-x-full');
+      setTimeout(function() {
+        document.getElementById('cart-overlay').classList.add('hidden');
+      }, 300);
+    }
+
+    // ===== EMAIL SIGNUP =====
+    function handleEmailSubmit(e) {
+      e.preventDefault();
+      var msg = document.getElementById('email-success');
+      msg.classList.remove('hidden');
+      e.target.reset();
+      setTimeout(function() { msg.classList.add('hidden'); }, 3000);
+    }
+
+    // ===== INIT =====
+    renderProductGrid();
+  </script>
+
+</body>
 </html>
