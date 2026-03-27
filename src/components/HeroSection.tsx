@@ -21,7 +21,7 @@ const HeroSection = ({ onShopClick }: HeroSectionProps) => {
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-          className="text-3xl sm:text-5xl font-bold tracking-tight mb-2 uppercase drop-shadow-lg"
+          className="text-3xl sm:text-5xl font-bold tracking-tight mb-2 uppercase drop-shadow-lg text-white"
         >
           Certified Drop Out Now
         </motion.h1>
@@ -29,9 +29,9 @@ const HeroSection = ({ onShopClick }: HeroSectionProps) => {
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
-          className="text-xl sm:text-3xl font-bold tracking-tight mb-8 uppercase drop-shadow-lg"
+          className="text-xl sm:text-3xl font-bold tracking-tight mb-8 uppercase drop-shadow-lg text-white"
         >
-          Premade &amp; Free Shipping
+          Pieces &amp; Free Shipping
         </motion.h2>
         <motion.button
           initial={{ y: 20, opacity: 0 }}
@@ -40,7 +40,7 @@ const HeroSection = ({ onShopClick }: HeroSectionProps) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.97 }}
           onClick={onShopClick}
-          className="bg-background text-foreground border border-transparent hover:border-foreground transition-all px-8 py-4 text-sm font-bold tracking-widest uppercase"
+          className="bg-black text-white border border-transparent hover:border-white transition-all px-8 py-4 text-sm font-bold tracking-widest uppercase"
         >
           Shop Denim
         </motion.button>
