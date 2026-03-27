@@ -25,7 +25,7 @@ const AnnouncementBar = () => {
     >
       <div>FREE SHIPPING</div>
       <div className="flex items-center gap-2">
-        <span className="text-muted-foreground font-normal">SALE ENDS IN :</span>
+        <span className="text-white/60 font-normal">SALE ENDS IN :</span>
         <div className="flex gap-2">
           <span>00 <span className="text-[10px] text-muted-foreground font-normal">Days</span></span>:
           <span>00 <span className="text-[10px] text-muted-foreground font-normal">Hrs</span></span>:
