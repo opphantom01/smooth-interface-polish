@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import productFront from "@/assets/product-front.jpg";
 import productBack from "@/assets/product-back.jpg";
+import productFlaredDenim from "@/assets/product-flared-denim.jpg";
+import productHenleyBlack from "@/assets/product-henley-black.jpg";
+import productHenleyGrey from "@/assets/product-henley-grey.jpg";
+import productHenleyBlue from "@/assets/product-henley-blue.jpg";
+import productHenleyBlue2 from "@/assets/product-henley-blue2.jpg";
+import productWidePants from "@/assets/product-wide-pants.jpg";
+import productFlaredBlack from "@/assets/product-flared-black.jpg";
 
 interface NewArrivalsProps {
   onProductClick: () => void;
@@ -8,7 +15,13 @@ interface NewArrivalsProps {
 
 const NewArrivals = ({ onProductClick }: NewArrivalsProps) => {
   const products = [
-    { name: "Vintage Flared Denim", sizes: "28, 30, 32, 34", price: "₹1299" },
+    { name: "Vintage Flared Denim", sizes: "28, 30, 32, 34", price: "₹1299", image: productFront, imageAlt: productBack },
+    { name: "Flared Denim Jeans", sizes: "28, 30, 32, 34", price: "₹1299", image: productFlaredDenim, imageAlt: productFlaredDenim },
+    { name: "Henley Long Sleeve - Black", sizes: "28, 30, 32, 34", price: "₹1299", image: productHenleyBlack, imageAlt: productHenleyBlack },
+    { name: "Henley Long Sleeve - Grey", sizes: "28, 30, 32, 34", price: "₹1299", image: productHenleyGrey, imageAlt: productHenleyGrey },
+    { name: "Henley Long Sleeve - Blue", sizes: "28, 30, 32, 34", price: "₹1299", image: productHenleyBlue, imageAlt: productHenleyBlue2 },
+    { name: "Wide Leg Pants", sizes: "28, 30, 32, 34", price: "₹1299", image: productWidePants, imageAlt: productWidePants },
+    { name: "Flared Pants - Black", sizes: "28, 30, 32, 34", price: "₹1299", image: productFlaredBlack, imageAlt: productFlaredBlack },
   ];
 
   return (
@@ -22,7 +35,7 @@ const NewArrivals = ({ onProductClick }: NewArrivalsProps) => {
       >
         New Arrivals
       </motion.h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {products.map((product, i) => (
           <motion.button
             key={i}
@@ -36,13 +49,13 @@ const NewArrivals = ({ onProductClick }: NewArrivalsProps) => {
           >
             <div className="relative w-full aspect-[3/4] bg-secondary mb-4 overflow-hidden">
               <img
-                src={productFront}
+                src={product.image}
                 alt={product.name}
                 className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
                 loading="lazy"
               />
               <img
-                src={productBack}
+                src={product.imageAlt}
                 alt={`${product.name} Back`}
                 className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
                 loading="lazy"
