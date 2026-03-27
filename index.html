@@ -1,142 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crp.tm | Official Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap');
-        
-        /* The Grunge Background */
-        body { 
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
-            background-color: #000; 
-            background-image: url('YOUR_RIPPED_PAPER_LINK_HERE.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; 
-            color: #fff; 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- TODO: Set the document title to the name of your application -->
+    <title>Lovable App</title>
+    <meta name="description" content="Lovable Generated Project" />
+    <meta name="author" content="Lovable" />
+
+    <!-- TODO: Update og:title to match your application name -->
+    <meta property="og:title" content="Lovable App" />
+    <meta property="og:description" content="Lovable Generated Project" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Lovable" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+  </head>
+
+  <body>
+    <!-- GitHub Pages SPA redirect handler -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
         }
-        
-        ::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* The Magic Page Switcher CSS */
-        .page { display: none; }
-        .page.active { display: block; }
-    </style>
-</head>
-<body class="antialiased">
-
-    <div id="home-view" class="page active">
-        <div class="w-full border-b border-white/20 py-3 px-4 flex justify-center items-center gap-6 text-[10px] sm:text-sm tracking-widest font-bold bg-black/40 backdrop-blur-sm">
-            <div>FREE SHIPPING</div>
-            <div class="flex items-center gap-2"><span class="text-gray-400 font-normal">ENDS IN :</span><div class="flex gap-1">00:00:20:23</div></div>
-        </div>
-
-        <nav class="w-full flex justify-between items-center px-6 py-4 sticky top-0 bg-black/50 backdrop-blur-md z-50">
-            <button class="w-8 h-8 flex flex-col justify-center gap-1.5"><div class="w-6 h-0.5 bg-white"></div><div class="w-6 h-0.5 bg-white"></div></button>
-            <span class="text-xl font-bold tracking-[0.2em] uppercase text-center drop-shadow-md">crp.tm</span>
-            <button class="text-sm font-bold tracking-widest drop-shadow-md cart-display">CART (0)</button>
-        </nav>
-
-        <div class="relative w-full h-[80vh] overflow-hidden flex flex-col justify-end items-center pb-20 bg-transparent border-b border-white/20">
-            <img src="YOUR_HERO_IMAGE_HERE.jpg" class="absolute inset-0 w-full h-full object-cover opacity-60">
-            <div class="relative z-10 text-center px-4 w-full bg-gradient-to-t from-black/80 to-transparent pt-20 pb-10">
-                <h1 class="text-3xl font-bold tracking-tight mb-2 uppercase drop-shadow-lg text-white">EXHUMED FROM THE DIRT</h1>
-                <h2 class="text-lg font-bold tracking-tight mb-8 uppercase drop-shadow-lg text-gray-300">1-of-1 Pieces • Free Shipping</h2>
-            </div>
-        </div>
-
-        <div class="w-full max-w-7xl mx-auto px-4 py-16">
-            <h3 class="text-xl font-bold uppercase tracking-widest mb-10 text-center drop-shadow-md">The Vault</h3>
-            <div class="grid grid-cols-2 gap-4">
-                
-                <div onclick="navigateTo('item-1')" class="group cursor-pointer flex flex-col block">
-                    <div class="relative w-full aspect-[3/4] bg-black/40 mb-4 overflow-hidden border border-white/10">
-                        <img src="YOUR_DENIM_IMAGE_HERE.jpg" class="absolute inset-0 w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider mb-1">Vintage Flared Denim</h4>
-                        <div class="text-sm font-bold">₹1299</div>
-                    </div>
-                </div>
-
-                <div onclick="navigateTo('item-2')" class="group cursor-pointer flex flex-col block">
-                    <div class="relative w-full aspect-[3/4] bg-black/40 mb-4 overflow-hidden border border-white/10">
-                        <img src="YOUR_NEW_SHIRT_IMAGE_HERE.jpg" class="absolute inset-0 w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="text-xs font-bold uppercase tracking-wider mb-1">Sistine Chapel Heavy Tee</h4>
-                        <div class="text-sm font-bold">₹899</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-    <div id="item-1" class="page">
-        <nav class="w-full flex justify-between items-center px-6 py-4 sticky top-0 bg-black/50 backdrop-blur-md z-50 border-b border-white/20">
-            <button onclick="navigateTo('home-view')" class="w-8 h-8 flex items-center"><svg fill="white" viewBox="0 0 24 24" class="w-6 h-6"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg></button>
-            <span class="text-xl font-bold tracking-[0.2em] uppercase text-center drop-shadow-md">crp.tm</span>
-            <button class="text-sm font-bold tracking-widest drop-shadow-md cart-display">CART (0)</button>
-        </nav>
-        <div class="w-full relative border-b border-white/10"><img src="YOUR_DENIM_IMAGE_HERE.jpg" class="w-full h-[65vh] object-cover"></div>
-        <div class="px-4 py-8 max-w-xl mx-auto drop-shadow-md">
-            <div class="flex justify-between items-start mb-6">
-                <div><h1 class="text-2xl font-bold uppercase tracking-wider mb-1">Vintage Flared Denim</h1><p class="text-sm text-gray-400">1-of-1 Sourced</p></div>
-                <p class="text-xl font-bold">₹1299</p>
-            </div>
-            <button onclick="addToCart(this)" class="w-full bg-white text-black py-4 font-bold uppercase tracking-widest text-sm mb-10 hover:bg-gray-200 transition-colors shadow-lg">Add To Cart</button>
-        </div>
-    </div>
-
-    <div id="item-2" class="page">
-        <nav class="w-full flex justify-between items-center px-6 py-4 sticky top-0 bg-black/50 backdrop-blur-md z-50 border-b border-white/20">
-            <button onclick="navigateTo('home-view')" class="w-8 h-8 flex items-center"><svg fill="white" viewBox="0 0 24 24" class="w-6 h-6"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg></button>
-            <span class="text-xl font-bold tracking-[0.2em] uppercase text-center drop-shadow-md">crp.tm</span>
-            <button class="text-sm font-bold tracking-widest drop-shadow-md cart-display">CART (0)</button>
-        </nav>
-        <div class="w-full relative border-b border-white/10"><img src="YOUR_NEW_SHIRT_IMAGE_HERE.jpg" class="w-full h-[65vh] object-cover"></div>
-        <div class="px-4 py-8 max-w-xl mx-auto drop-shadow-md">
-            <div class="flex justify-between items-start mb-6">
-                <div><h1 class="text-2xl font-bold uppercase tracking-wider mb-1">Sistine Chapel Heavy Tee</h1><p class="text-sm text-gray-400">Boxy Fit</p></div>
-                <p class="text-xl font-bold">₹899</p>
-            </div>
-            <button onclick="addToCart(this)" class="w-full bg-white text-black py-4 font-bold uppercase tracking-widest text-sm mb-10 hover:bg-gray-200 transition-colors shadow-lg">Add To Cart</button>
-        </div>
-    </div>
-
-    <script>
-        // 1. The Room Switcher
-        function navigateTo(pageId) {
-            const allPages = document.querySelectorAll('.page');
-            allPages.forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0, 0); 
-        }
-
-        // 2. The Cart Math
-        let cartCount = 0;
-        function addToCart(button) {
-            cartCount++;
-            const cartDisplays = document.querySelectorAll('.cart-display');
-            cartDisplays.forEach(display => {
-                display.innerText = `CART (${cartCount})`;
-            });
-
-            const originalText = button.innerText;
-            button.innerText = 'ADDED TO CART!';
-            button.classList.add('bg-gray-300'); 
-            
-            setTimeout(() => {
-                button.innerText = originalText;
-                button.classList.remove('bg-gray-300');
-            }, 1500);
-        }
+      }(window.location))
     </script>
-</body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
