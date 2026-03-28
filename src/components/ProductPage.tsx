@@ -1,26 +1,13 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import productFront from "@/assets/product-front.jpg";
-import productBack from "@/assets/product-back.jpg";
-import carouselModel1 from "@/assets/carousel-model1.jpg";
-import carouselModel2 from "@/assets/carousel-model2.jpg";
-import carouselLook from "@/assets/carousel-look.jpg";
+import { type Product } from "@/data/products";
 
 interface ProductPageProps {
+  product: Product;
   onAddToCart: (size: string) => void;
 }
 
-const images = [
-  { src: productFront, alt: "Front" },
-  { src: productBack, alt: "Back" },
-  { src: carouselModel1, alt: "Model 1" },
-  { src: carouselModel2, alt: "Model 2" },
-  { src: carouselLook, alt: "Look" },
-];
-
-const sizes = ["28", "30", "32", "34"];
-
-const ProductPage = ({ onAddToCart }: ProductPageProps) => {
+const ProductPage = ({ product, onAddToCart }: ProductPageProps) => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [cartMsg, setCartMsg] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -49,7 +36,7 @@ const ProductPage = ({ onAddToCart }: ProductPageProps) => {
           className="flex overflow-x-auto snap-x snap-mandatory w-full"
           style={{ scrollbarWidth: "none" }}
         >
-          {images.map((img, i) => (
+          {product.images.map((img, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
@@ -61,9 +48,11 @@ const ProductPage = ({ onAddToCart }: ProductPageProps) => {
             </motion.div>
           ))}
         </div>
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-background/60 backdrop-blur-md text-foreground text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full pointer-events-none">
-          Swipe ➔
-        </div>
+        {product.images.length > 1 && (
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-background/60 backdrop-blur-md text-foreground text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full pointer-events-none">
+            Swipe ➔
+          </div>
+        )}
       </div>
 
       {/* Product Details */}
@@ -75,10 +64,10 @@ const ProductPage = ({ onAddToCart }: ProductPageProps) => {
       >
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h1 className="text-2xl font-bold uppercase tracking-wider mb-1">Vintage Flared Denim</h1>
+            <h1 className="text-2xl font-bold uppercase tracking-wider mb-1">{product.name}</h1>
             <p className="text-sm text-muted-foreground">Brand New Condition</p>
           </div>
-          <p className="text-xl font-bold">₹1299</p>
+          <p className="text-xl font-bold">{product.priceLabel}</p>
         </div>
 
         <div className="mb-8">
@@ -86,7 +75,7 @@ const ProductPage = ({ onAddToCart }: ProductPageProps) => {
             <span className="text-sm font-bold uppercase tracking-widest">Select Size</span>
           </div>
           <div className="grid grid-cols-4 gap-3">
-            {sizes.map((size) => (
+            {product.sizes.map((size) => (
               <motion.button
                 key={size}
                 whileHover={{ scale: 1.05 }}
@@ -130,11 +119,10 @@ const ProductPage = ({ onAddToCart }: ProductPageProps) => {
         <div className="border-t border-border pt-6">
           <h3 className="text-sm font-bold uppercase tracking-widest mb-4">Measurements</h3>
           <div className="text-xs text-muted-foreground space-y-2 tracking-wide leading-relaxed">
-            <p><span className="text-foreground">Length:</span> 43 across all sizes</p>
-            <p><span className="text-foreground">Size 28:</span> Thigh 10.5 | Leg Opening 18</p>
-            <p><span className="text-foreground">Size 30:</span> Thigh 11.0 | Leg Opening 18.5 (Model wears 30)</p>
-            <p><span className="text-foreground">Size 32:</span> Thigh 11.5 | Leg Opening 19</p>
-            <p><span className="text-foreground">Size 34:</span> Thigh 12.5 | Leg Opening 20</p>
+            <p><span className="text-foreground">Length:</span> {product.measurements.length}</p>
+            {product.measurements.sizes.map((m, i) => (
+              <p key={i}><span className="text-foreground">{m.label}:</span> {m.details}</p>
+            ))}
           </div>
         </div>
       </motion.div>
