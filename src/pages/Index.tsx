@@ -7,6 +7,7 @@ import NewArrivals from "@/components/NewArrivals";
 import EmailSignup from "@/components/EmailSignup";
 import ProductPage from "@/components/ProductPage";
 import CartModal from "@/components/CartModal";
+import { products } from "@/data/products";
 
 interface CartItem {
   name: string;
@@ -16,10 +17,14 @@ interface CartItem {
 
 const Index = () => {
   const [page, setPage] = useState<"home" | "product">("home");
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const goToProduct = useCallback(() => {
+  const selectedProduct = products.find((p) => p.id === selectedProductId) || products[0];
+
+  const goToProduct = useCallback((productId: string) => {
+    setSelectedProductId(productId);
     setPage("product");
     window.scrollTo(0, 0);
   }, []);
@@ -30,8 +35,8 @@ const Index = () => {
   }, []);
 
   const addToCart = useCallback((size: string) => {
-    setCartItems((prev) => [...prev, { name: "Vintage Flared Denim", size, price: 1299 }]);
-  }, []);
+    setCartItems((prev) => [...prev, { name: selectedProduct.name, size, price: selectedProduct.price }]);
+  }, [selectedProduct]);
 
   const removeFromCart = useCallback((index: number) => {
     setCartItems((prev) => prev.filter((_, i) => i !== index));
@@ -55,19 +60,19 @@ const Index = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
           >
-            <HeroSection onShopClick={goToProduct} />
+            <HeroSection onShopClick={() => goToProduct(products[0].id)} />
             <NewArrivals onProductClick={goToProduct} />
             <EmailSignup />
           </motion.div>
         ) : (
           <motion.div
-            key="product"
+            key={`product-${selectedProductId}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
           >
-            <ProductPage onAddToCart={addToCart} />
+            <ProductPage product={selectedProduct} onAddToCart={addToCart} />
           </motion.div>
         )}
       </AnimatePresence>
