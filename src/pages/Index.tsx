@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
@@ -7,6 +7,7 @@ import NewArrivals from "@/components/NewArrivals";
 import EmailSignup from "@/components/EmailSignup";
 import ProductPage from "@/components/ProductPage";
 import CartModal from "@/components/CartModal";
+import SideMenu from "@/components/SideMenu";
 import { products } from "@/data/products";
 
 interface CartItem {
