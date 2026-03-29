@@ -7,7 +7,7 @@ interface NavbarProps {
   onMenuClick: () => void;
 }
 
-const Navbar = ({ cartCount, onCartClick, onHomeClick }: NavbarProps) => {
+const Navbar = ({ cartCount, onCartClick, onHomeClick, onMenuClick }: NavbarProps) => {
   return (
     <motion.nav
       initial={{ opacity: 0 }}
