@@ -4,6 +4,7 @@ interface NavbarProps {
   cartCount: number;
   onCartClick: () => void;
   onHomeClick: () => void;
+  onMenuClick: () => void;
 }
 
 const Navbar = ({ cartCount, onCartClick, onHomeClick }: NavbarProps) => {
