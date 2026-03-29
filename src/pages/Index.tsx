@@ -37,6 +37,13 @@ const Index = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const scrollToProducts = useCallback(() => {
+    setPage("home");
+    setTimeout(() => {
+      productsRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  }, []);
+
   const addToCart = useCallback((size: string) => {
     setCartItems((prev) => [...prev, { name: selectedProduct.name, size, price: selectedProduct.price }]);
   }, [selectedProduct]);
