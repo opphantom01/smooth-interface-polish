@@ -72,7 +72,9 @@ const Index = () => {
             transition={{ duration: 0.35 }}
           >
             <HeroSection onShopClick={() => goToProduct(products[0].id)} />
-            <NewArrivals onProductClick={goToProduct} />
+            <div ref={productsRef}>
+              <NewArrivals onProductClick={goToProduct} />
+            </div>
             <EmailSignup />
           </motion.div>
         ) : (
