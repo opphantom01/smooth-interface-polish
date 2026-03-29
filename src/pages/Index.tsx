@@ -20,7 +20,9 @@ const Index = () => {
   const [page, setPage] = useState<"home" | "product">("home");
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const productsRef = useRef<HTMLDivElement>(null);
 
   const selectedProduct = products.find((p) => p.id === selectedProductId) || products[0];
 
