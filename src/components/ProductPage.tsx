@@ -97,9 +97,18 @@ const ProductPage = ({ product, onAddToCart }: ProductPageProps) => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.97 }}
           onClick={handleAdd}
-          className="w-full bg-foreground text-background py-4 font-bold uppercase tracking-widest text-sm mb-4 hover:opacity-90 transition-opacity"
+          className="w-full bg-foreground text-background py-4 font-bold uppercase tracking-widest text-sm mb-3 hover:opacity-90 transition-opacity"
         >
           Add To Cart
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={handleAdd}
+          className="w-full border-2 border-foreground text-foreground py-4 font-bold uppercase tracking-widest text-sm mb-4 hover:bg-foreground hover:text-background transition-all"
+        >
+          Buy Now
         </motion.button>
 
         <AnimatePresence>
@@ -115,6 +124,18 @@ const ProductPage = ({ product, onAddToCart }: ProductPageProps) => {
             </motion.p>
           )}
         </AnimatePresence>
+
+        <div className="border-t border-border pt-4 mb-6">
+          <p className="text-xs text-muted-foreground tracking-wide leading-relaxed">
+            Shipping all over India. No returns, no cancellations, no COD.
+          </p>
+          <a
+            href="mailto:contact@crp.tm"
+            className="text-xs font-bold uppercase tracking-widest text-foreground hover:opacity-70 transition-opacity mt-2 inline-block"
+          >
+            Contact Information
+          </a>
+        </div>
 
         <div className="border-t border-border pt-6">
           <h3 className="text-sm font-bold uppercase tracking-widest mb-4">Measurements</h3>
