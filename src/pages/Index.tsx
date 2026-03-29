@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
@@ -7,6 +7,7 @@ import NewArrivals from "@/components/NewArrivals";
 import EmailSignup from "@/components/EmailSignup";
 import ProductPage from "@/components/ProductPage";
 import CartModal from "@/components/CartModal";
+import SideMenu from "@/components/SideMenu";
 import { products } from "@/data/products";
 
 interface CartItem {
@@ -19,7 +20,9 @@ const Index = () => {
   const [page, setPage] = useState<"home" | "product">("home");
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const productsRef = useRef<HTMLDivElement>(null);
 
   const selectedProduct = products.find((p) => p.id === selectedProductId) || products[0];
 
@@ -32,6 +35,13 @@ const Index = () => {
   const goHome = useCallback(() => {
     setPage("home");
     window.scrollTo(0, 0);
+  }, []);
+
+  const scrollToProducts = useCallback(() => {
+    setPage("home");
+    setTimeout(() => {
+      productsRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
   }, []);
 
   const addToCart = useCallback((size: string) => {
@@ -49,6 +59,7 @@ const Index = () => {
         cartCount={cartItems.length}
         onCartClick={() => setCartOpen(true)}
         onHomeClick={goHome}
+        onMenuClick={() => setMenuOpen(true)}
       />
 
       <AnimatePresence mode="wait">
@@ -61,7 +72,9 @@ const Index = () => {
             transition={{ duration: 0.35 }}
           >
             <HeroSection onShopClick={() => goToProduct(products[0].id)} />
-            <NewArrivals onProductClick={goToProduct} />
+            <div ref={productsRef}>
+              <NewArrivals onProductClick={goToProduct} />
+            </div>
             <EmailSignup />
           </motion.div>
         ) : (
@@ -82,6 +95,12 @@ const Index = () => {
         items={cartItems}
         onClose={() => setCartOpen(false)}
         onRemove={removeFromCart}
+      />
+
+      <SideMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onShopAllClick={scrollToProducts}
       />
     </div>
   );
