@@ -96,6 +96,12 @@ const Index = () => {
         onClose={() => setCartOpen(false)}
         onRemove={removeFromCart}
       />
+
+      <SideMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onShopAllClick={scrollToProducts}
+      />
     </div>
   );
 };
