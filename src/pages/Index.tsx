@@ -59,6 +59,7 @@ const Index = () => {
         cartCount={cartItems.length}
         onCartClick={() => setCartOpen(true)}
         onHomeClick={goHome}
+        onMenuClick={() => setMenuOpen(true)}
       />
 
       <AnimatePresence mode="wait">
